@@ -17,7 +17,8 @@ export default {
     filterPosts() {
       if (this.searchText) {
         return this.getPosts.filter(
-          (p) => p.name.toLowerCase().indexOf(this.searchText.toLowerCase()) >= 0
+          (p) =>
+            p.name.toLowerCase().indexOf(this.searchText.toLowerCase()) >= 0
         );
       } else {
         return this.getPosts;
@@ -35,6 +36,9 @@ export default {
       this.checkedPost = post;
       this.$store.commit("posts/SET_VISIBLE_EDIT_POP_UP");
     },
+    highlightThisPostMethod(data) {
+      console.log(this.filterPosts.findIndex((p) => p.id === data));
+    },
   },
   mounted() {
     if (this.$store.getters["posts/getPosts"].length === 0) {
@@ -49,6 +53,7 @@ export default {
     <edit-post
       v-if="this.$store.state.posts.isVisibleEditPopUp === true"
       :checkedPost="checkedPost"
+      @highlightThisPost="highlightThisPostMethod"
     />
     <add-post v-if="this.$store.state.posts.isVisibleAddPopUp === true" />
     <header>
@@ -59,7 +64,14 @@ export default {
       </div>
     </header>
     <TransitionGroup name="list" tag="div" class="posts">
-      <div v-for="post in filterPosts" :key="post.id" class="post">
+      <div
+        v-for="post in filterPosts"
+        :style="{
+          backgroundColor: post?.id === checkedPost?.id ? '#00ffff' : 'inherit',
+        }"
+        :key="post.id"
+        class="post"
+      >
         <p @click="openPopUp(post)">
           {{ post.name }}
         </p>
@@ -117,7 +129,7 @@ header {
     border-radius: 4px;
     border: 1px solid #3688ff;
     &:hover {
-      background-color: rgb(114, 255, 213);
+      background-color: #00ffff !important;
     }
     p {
       width: 100%;

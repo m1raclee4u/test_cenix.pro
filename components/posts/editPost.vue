@@ -10,6 +10,7 @@ export default {
   mounted() {
     let copiedPost =  JSON.parse(JSON.stringify(this.checkedPost))
     this.edited = copiedPost
+    this.$emit('highlightThisPost', this.edited.id)
   },
   methods: {
     async newTextMethod() {
@@ -69,9 +70,10 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow-y: scroll;
   gap: 20px;
   width: 500px;
-  height: 400px;
+  height: 500px;
   padding: 20px 60px;
   background-color: #fff;
   border: 1px solid #3688ff;
