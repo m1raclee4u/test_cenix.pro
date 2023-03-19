@@ -51,13 +51,13 @@ export default {
 
 <style lang="scss" scoped>
 .edit {
-  position: absolute;
+  position: fixed;
   max-width: 100vw;
   width: 100%;
   height: 100vh;
   z-index: 5;
   .editBack {
-    position: absolute;
+    position: fixed;
     max-width: 100vw;
     width: 100%;
     height: 100vh;
@@ -66,7 +66,7 @@ export default {
   }
 }
 .editPost {
-  position: absolute;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
